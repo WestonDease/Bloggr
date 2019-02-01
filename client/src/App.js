@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import * as $ from 'axios';
+//const Nightmare = require('nightmare')
+//const nightmare = Nightmare({ show: true })
+var Crawler = require("js-crawler");
 
 /*
     CURRENT STATE
@@ -216,6 +219,7 @@ class App extends Component {
       $.put(`/api/blogs/${id}`, { _id: id, completed: false });
       this.getBlogs();
     }
+    this.devTOHandler();
   }
 
   handleSelection = (id, selected) => {
@@ -256,8 +260,26 @@ class App extends Component {
   }
 
   //nightmare
-  devTOHandler(){
+  devTOHandler(){ 
+    /*
+    nightmare
+    .authentication("", "")
+    .goto('https://dev.to/new')
+    .type('#search_form_input_homepage', 'this is a blog written with nightmare! WE MADE IT BOYS!')
+    //.click('#search_button_homepage')
+    //.wait('#r1-0 a.result__a')
+    //.evaluate(() => document.querySelector('#r1-0 a.result__a').href)
+    .end()
+    .then(console.log)
+    .catch(error => {
+      console.error('Search failed:', error)
+    })
+    */
 
+   new Crawler().configure({depth: 3})
+   .crawl("http://www.google.com", function onSuccess(page) {
+     console.log(page.url);
+   });
   }
 
   //nightmare
