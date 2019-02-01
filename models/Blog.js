@@ -11,7 +11,7 @@ const BlogSchema = new Schema({
     required: 'please enter a title'
   },
   content: {
-    type: Object,
+    type: String,
     required: "Please enter a blog"
   },
   dateCreated: {

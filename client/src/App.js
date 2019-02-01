@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as $ from 'axios';
-import {Editor, EditorState, RichUtils} from 'draft-js';
 
 /*
     CURRENT STATE
@@ -116,7 +115,8 @@ const SiteList = (props) => (
 // 
 const DevSpace = (props) => (
   <div id="DevSpace">
-    <textarea onChange={props.handleChange}>{props.init}</textarea>
+    <text onChange={props.handleTitleChange}></text>
+    <textarea onChange={props.handleContentChange}>{props.init}</textarea>
     <form>
     <button id="submit" onClick={props.handleSubmit}>Submit</button>
     </form>
@@ -151,6 +151,7 @@ class App extends Component {
 
   state = {
     blogsList: [],
+    newblogName: '',
     newblog: '',
     sitesSelected: [{name: 'twitter', select: false}, {name: 'facebook', select: false}, {name: 'medium', select: false}, {name: 'dev.to', select: false}],
     sites: [],  
@@ -178,9 +179,14 @@ class App extends Component {
   }
 
   //logs undefined but accepts value
-  handleChange = (event) => {
+  handleContentChange = (event) => {
     this.setState({ newblog: event.target.value })
     console.log(this.newblog)
+  }
+
+  handleTitleChange = (event) => {
+    this.setState({ newblogName: event.target.value })
+    console.log(this.newblogName)
   }
 
   handleSubmit = (event) => {
@@ -265,8 +271,7 @@ class App extends Component {
     return (
       <div className="App">
         <SiteList sites={this.state.sitesSelected} handleSelection={this.handleSelection}/>
-        <DevSpace init={"it works"} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
-        <Editor editorState={this.state.editorState} onChange={this.onChange} handleKeyCommand={this.handleKeyCommand}/>
+        <DevSpace init={"it works"} handleSubmit={this.handleSubmit} handleContentChange={this.handleContentChange} handleTitleChange={this.handleTitleChange}/>
         <BlogList blogs={this.state.blogsList}/>
       </div>
     );
