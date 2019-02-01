@@ -115,9 +115,9 @@ const SiteList = (props) => (
 // 
 const DevSpace = (props) => (
   <div id="DevSpace">
-    <text onChange={props.handleTitleChange}></text>
-    <textarea onChange={props.handleContentChange}>{props.init}</textarea>
     <form>
+    <input type="text" onChange={props.handleTitleChange}/>
+    <textarea onChange={props.handleContentChange}>{props.init}</textarea>
     <button id="submit" onClick={props.handleSubmit}>Submit</button>
     </form>
   </div>
@@ -126,6 +126,9 @@ const DevSpace = (props) => (
 // Blog
 const Blog = (props) => (
   <div className="blog">
+  <h1>
+    {props.title}
+  </h1>
   <h2>
     {props.content}
   </h2>
@@ -141,6 +144,7 @@ const BlogList = (props) => (
     {props.blogs.map((blog, i) => <Blog
       id={blog._id}
       key={i}
+      title={blog.title}
       content={blog.content}
       dateCreated={blog.dateCreated}
     />)}
@@ -154,8 +158,8 @@ class App extends Component {
     newblogName: '',
     newblog: '',
     sitesSelected: [{name: 'twitter', select: false}, {name: 'facebook', select: false}, {name: 'medium', select: false}, {name: 'dev.to', select: false}],
-    sites: [],  
-    editorState: EditorState.createEmpty()
+    sites: []
+    //editorState: EditorState.createEmpty()
   }
 
   //changes based on rich editor
@@ -165,6 +169,7 @@ class App extends Component {
     console.log(() => this.state.editorState.toJS());
   }
 
+  /*
   //controls bolding, italics, underline, ect.
   handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(this.state.editorState, command)
@@ -177,24 +182,27 @@ class App extends Component {
 
     return 'not-handled';
   }
+  */
 
   //logs undefined but accepts value
   handleContentChange = (event) => {
     this.setState({ newblog: event.target.value })
-    console.log(this.newblog)
+    console.log(this.state.newblog)
   }
 
   handleTitleChange = (event) => {
     this.setState({ newblogName: event.target.value })
-    console.log(this.newblogName)
+    console.log(this.state.newblogName)
   }
 
   handleSubmit = (event) => {
+    console.log(this.state.newblogName);
+    console.log(this.state.newblog);
     event.preventDefault();
     console.log('were posting!');
     let date = new Date();
     let today = date.getDate();
-    $.post('/api/blogs', { title: this.state.newblog, content: this.state.editorState, dateCreated: today })
+    $.post('/api/blogs', { title: this.state.newblogName, content: this.state.newblog, dateCreated: today })
       .then((result) => {
         this.getBlogs();
       })
