@@ -30,6 +30,7 @@
     "js-crawler": "^0.3.21",
     "mongoose": "^5.0.17",
     "nightmare": "^3.0.1",
+    "nightmare-react-utils": "^1.0.4",
     "path": "^0.12.7",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
