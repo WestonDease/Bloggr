@@ -263,7 +263,7 @@ class App extends Component {
     
     console.log('lets go');
 
-    $.get('/api/nightmare')
+    $.post('/api/nightmare', { blog: this.state.newblog })
       .then((result) => {
         console.log(result.data);
       });

@@ -42,15 +42,17 @@ module.exports = function (app) {
       .catch(err => res.json(err))
   });
 
-  app.get('/api/nightmare', function(req, res) {
+  app.post('/api/nightmare', function(req, res) {
     let message = '--- \n\
     title: Nightmare \n\
     published: true \n\
     description: This is an automated post using nightmare.js \n\
     tags: nightmare.js \n\
-    ---\n\
-    This is an automated post made entirely using nightmare!';
+    ---\n\ ' +
+    req.body.blog;
+
     console.log("We are in our api routes handling a nightmare request");
+    
     nightmare
     .goto('https://dev.to/users/auth/github?state=join-club-page_basic')
     .type('#login_field', '')
