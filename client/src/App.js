@@ -208,7 +208,22 @@ class App extends Component {
         this.getBlogs();
       })
 
-    this.devTOHandler();
+    if(this.sitesSelected[0].select) {
+      this.twitterHandler();
+    }
+
+    if(this.sitesSelected[1].select) {
+      this.facebookHandler();
+    }
+
+    if(this.sitesSelected[2].select) {
+      this.mediumHandler();
+    }
+
+    if(this.sitesSelected[3].select) {
+      this.devTOHandler();
+    }
+
   }
 
   handleCompletion = (id, completed) => {
